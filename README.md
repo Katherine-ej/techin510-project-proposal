@@ -25,7 +25,7 @@ Habitomate is a web application that combines a to-do list, tomato timer, and ha
 - Developer: Katherine Chen  
 - Email: ejchen99@uw.edu
 - GitHub: https://github.com/Katherine-ej
-- Project Website: http://127.0.0.1:5000
+- Project: (after building VM) http://localhost:5000
 
 
 # Habitomate [last updated: April 18 HW]
