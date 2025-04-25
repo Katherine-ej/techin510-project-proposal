@@ -25,9 +25,10 @@ Habitomate is a web application that combines a to-do list, tomato timer, and ha
 - Developer: Katherine Chen  
 - Email: ejchen99@uw.edu
 - GitHub: https://github.com/Katherine-ej
+- Project Website: http://127.0.0.1:5000
 
 
-# Habitomate
+# Habitomate [last updated: April 18 HW]
 
 Habitomate is a web-based tool that helps users manage their time and habits using a to-do list, Pomodoro timer, and habit tracker.
 
