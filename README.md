@@ -25,3 +25,35 @@ Habitomate is a web application that combines a to-do list, tomato timer, and ha
 - Developer: Katherine Chen  
 - Email: ejchen99@uw.edu
 - GitHub: https://github.com/Katherine-ej
+
+
+# Habitomate
+
+Habitomate is a web-based tool that helps users manage their time and habits using a to-do list, Pomodoro timer, and habit tracker.
+
+## 🛠️ Project Status
+
+- [x] Project repo created
+- [x] Virtual environment set up using conda
+- [x] Homepage basic setup (Flask)
+- [ ] To-do list feature
+- [ ] Pomodoro timer feature
+- [ ] Habit tracker feature
+
+## 📦 Setup Instructions
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Katherine-ej/techin510-project-proposal.git
+   cd techin510-project-proposal
+
+2. Create and activate a conda environment:
+    conda create -n habitomate-env python=3.11
+    conda activate habitomate-env
+
+3. Install:
+    pip install flask
+    pip freeze > requirements.txt
+
+4. python app.py:
+    python app.py
