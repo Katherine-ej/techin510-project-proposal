@@ -2,10 +2,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Habitomate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Tools</title>
+    <style>
+        :root {
+            --morandi-beige: #E8E4D9;
+            --morandi-dusty-pink: #D4C4B7;
+            --morandi-gray-blue: #A5B1C2;
+            --morandi-muted-green: #B8C4B9;
+            --morandi-soft-gray: #D3D3D3;
+            --morandi-dark: #6B6B6B;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--morandi-beige);
+            color: var(--morandi-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--morandi-dark);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--morandi-dark);
+            opacity: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            color: var(--morandi-dark);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--morandi-gray-blue);
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .tool-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--morandi-dark);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Habitomate</h1>
-    <p>This is a simple homepage. Features like To-Do List, Pomodoro Clock, and Habit Tracker will be coming soon!</p>
+    <div class="container">
+        <header>
+            <h1>Productivity Tools</h1>
+            <p class="subtitle">Simple tools to help you stay focused and organized</p>
+        </header>
+
+        <div class="tools-grid">
+            <a href="/todo-list" class="tool-card">
+                <div class="tool-icon">📝</div>
+                <h2 class="tool-title">Today's To-do List</h2>
+                <p class="tool-description">Organize your daily tasks and track your progress with our simple and intuitive to-do list.</p>
+            </a>
+
+            <a href="/tomato-clock" class="tool-card">
+                <div class="tool-icon">⏰</div>
+                <h2 class="tool-title">Tomato Clock</h2>
+                <p class="tool-description">Stay focused with the Pomodoro technique. Work in focused intervals with regular breaks.</p>
+            </a>
+
+            <a href="/habit-tracker" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h2 class="tool-title">Habit Tracker</h2>
+                <p class="tool-description">Build and maintain good habits with our visual habit tracking system.</p>
+            </a>
+        </div>
+    </div>
 </body>
 </html>

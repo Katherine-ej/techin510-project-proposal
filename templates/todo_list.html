@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's To-do List</title>
+    <style>
+        :root {
+            --morandi-beige: #E8E4D9;
+            --morandi-dusty-pink: #D4C4B7;
+            --morandi-gray-blue: #A5B1C2;
+            --morandi-muted-green: #B8C4B9;
+            --morandi-soft-gray: #D3D3D3;
+            --morandi-dark: #6B6B6B;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--morandi-beige);
+            color: var(--morandi-dark);
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--morandi-gray-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .back-button:hover {
+            background-color: var(--morandi-dark);
+            transform: translateY(-1px);
+        }
+
+        .back-button-container {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        h1, h2 {
+            color: var(--morandi-dark);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .task-form {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--morandi-beige);
+            border-radius: 15px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 500;
+            color: var(--morandi-dark);
+        }
+
+        input, textarea {
+            padding: 0.8rem;
+            border: 1px solid var(--morandi-soft-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--morandi-gray-blue);
+            box-shadow: 0 0 0 2px rgba(165, 177, 194, 0.2);
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .add-task {
+            background-color: var(--morandi-muted-green);
+            color: white;
+        }
+
+        .add-task:hover {
+            background-color: #9BAF9C;
+            transform: translateY(-1px);
+        }
+
+        .task-list {
+            margin-top: 2rem;
+        }
+
+        .task-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            padding: 1.2rem;
+            background-color: white;
+            border: 1px solid var(--morandi-soft-gray);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .task-info {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .complete-btn {
+            background-color: var(--morandi-muted-green);
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: var(--morandi-gray-blue);
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: var(--morandi-dusty-pink);
+            color: white;
+        }
+
+        .task-item.completed {
+            background-color: var(--morandi-beige);
+            border-color: var(--morandi-muted-green);
+        }
+
+        .section-title {
+            color: var(--morandi-dark);
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--morandi-soft-gray);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .task-item {
+                grid-template-columns: 1fr;
+            }
+
+            .task-actions {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-button-container">
+        <a href="/" class="back-button">← Back to Homepage</a>
+    </div>
+    <div class="container">
+        <h1>Today's To-do List</h1>
+        
+        <form class="task-form" id="taskForm">
+            <div class="form-group">
+                <label for="date">Today's Date:</label>
+                <input type="date" id="date" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="task">Task Description:</label>
+                <textarea id="task" rows="3" required placeholder="Enter your task description..."></textarea>
+            </div>
+            
+            <button type="submit" class="add-task">Add Task</button>
+        </form>
+
+        <div class="task-list">
+            <h2 class="section-title">Pending Tasks</h2>
+            <div id="pendingTasks"></div>
+
+            <h2 class="section-title">Completed Tasks</h2>
+            <div id="completedTasks"></div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || {
+            pending: [],
+            completed: []
+        };
+
+        // Set today's date as default
+        document.getElementById('date').valueAsDate = new Date();
+
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function createTaskElement(task, isCompleted = false) {
+            const taskElement = document.createElement('div');
+            taskElement.className = `task-item ${isCompleted ? 'completed' : ''}`;
+            
+            const taskInfo = document.createElement('div');
+            taskInfo.className = 'task-info';
+            taskInfo.innerHTML = `
+                <div><strong>Date:</strong> ${task.date}</div>
+                <div><strong>Task:</strong> ${task.description}</div>
+            `;
+
+            const taskActions = document.createElement('div');
+            taskActions.className = 'task-actions';
+
+            if (!isCompleted) {
+                const completeBtn = document.createElement('button');
+                completeBtn.className = 'complete-btn';
+                completeBtn.textContent = 'Complete';
+                completeBtn.onclick = () => completeTask(task.id);
+                taskActions.appendChild(completeBtn);
+            }
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.textContent = 'Edit';
+            editBtn.onclick = () => editTask(task.id, isCompleted);
+            taskActions.appendChild(editBtn);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = () => deleteTask(task.id, isCompleted);
+            taskActions.appendChild(deleteBtn);
+
+            taskElement.appendChild(taskInfo);
+            taskElement.appendChild(taskActions);
+            return taskElement;
+        }
+
+        function renderTasks() {
+            const pendingContainer = document.getElementById('pendingTasks');
+            const completedContainer = document.getElementById('completedTasks');
+            
+            pendingContainer.innerHTML = '';
+            completedContainer.innerHTML = '';
+
+            tasks.pending.forEach(task => {
+                pendingContainer.appendChild(createTaskElement(task));
+            });
+
+            tasks.completed.forEach(task => {
+                completedContainer.appendChild(createTaskElement(task, true));
+            });
+        }
+
+        function addTask(event) {
+            event.preventDefault();
+            
+            const task = {
+                id: Date.now(),
+                date: document.getElementById('date').value,
+                description: document.getElementById('task').value
+            };
+
+            tasks.pending.push(task);
+            saveTasks();
+            renderTasks();
+            event.target.reset();
+            document.getElementById('date').valueAsDate = new Date();
+        }
+
+        function completeTask(taskId) {
+            const taskIndex = tasks.pending.findIndex(task => task.id === taskId);
+            if (taskIndex !== -1) {
+                const task = tasks.pending.splice(taskIndex, 1)[0];
+                tasks.completed.push(task);
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        function editTask(taskId, isCompleted) {
+            const taskList = isCompleted ? tasks.completed : tasks.pending;
+            const task = taskList.find(t => t.id === taskId);
+            
+            if (task) {
+                const newDescription = prompt('Edit task description:', task.description);
+                if (newDescription !== null) {
+                    task.description = newDescription;
+                    saveTasks();
+                    renderTasks();
+                }
+            }
+        }
+
+        function deleteTask(taskId, isCompleted) {
+            const taskList = isCompleted ? tasks.completed : tasks.pending;
+            const taskIndex = taskList.findIndex(task => task.id === taskId);
+            
+            if (taskIndex !== -1) {
+                taskList.splice(taskIndex, 1);
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        document.getElementById('taskForm').addEventListener('submit', addTask);
+        renderTasks();
+    </script>
+</body>
+</html> 
