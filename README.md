@@ -37,9 +37,9 @@ Habitomate is a web-based tool that helps users manage their time and habits usi
 - [x] Project repo created
 - [x] Virtual environment set up using conda
 - [x] Homepage basic setup (Flask)
-- [ ] To-do list feature
-- [ ] Pomodoro timer feature
-- [ ] Habit tracker feature
+- [x] To-do list feature
+- [x] Pomodoro timer feature
+- [x] Habit tracker feature
 
 ## 📦 Setup Instructions
 
